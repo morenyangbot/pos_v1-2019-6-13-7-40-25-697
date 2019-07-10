@@ -4,6 +4,12 @@ describe('pos', () => {
 
   const LEGAL_BARCODE = 'ITEM000001';
   const ILLEGAL_BARCODE = 'AITEM'
+  const LEGAL_ITEM_DETAIL = {
+    barcode: 'ITEM000001',
+    name: '雪碧',
+    unit: '瓶',
+    price: 3.00
+  }
 
   describe('Barcode verify check', () => {
     it('should return true in isBarcodeValid when call ITEM000001', () => {
@@ -12,6 +18,16 @@ describe('pos', () => {
 
     it('should return false in isBarcodeValid when call AITEM', () => {
       expect(isBarcodeValid(ILLEGAL_BARCODE)).toBe(false)
+    })
+  })
+
+  describe('Find item in database check', () => {
+    it('should return item detail in findItemInDataBase when call ITEM000001', () => {
+      expect(findItemInDB(LEGAL_BARCODE)).toEqual(LEGAL_ITEM_DETAIL)
+    })
+
+    it('should return item detail in findItemInDataBase when call AITEM', () => {
+      expect(findItemInDB(ILLEGAL_BARCODE)).toEqual(null)
     })
   })
 
