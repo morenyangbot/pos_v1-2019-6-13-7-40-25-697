@@ -81,3 +81,16 @@ const createReceiptText = ({ settlementItems, amount, discount }) => {
     receiptText += `----------------------\n总计：${amount.toFixed(2)}(元)\n节省：${discount.toFixed(2)}(元)\n**********************`
     return errorMsg + receiptText
 }
+
+const printReceipt = (items) => {
+    const settlementItems = [];
+    items.forEach(originBarcode => {
+        const {barcode, count} = splitOriginBarcode(originBarcode)
+        setAndCountItemInSettlementItems(settlementItems, barcode, count)
+    });
+    calculateAmountInSettlementItems(settlementItems)
+    calculatePromotions(settlementItems)
+    console.log(createReceiptText(
+        { settlementItems, ...calculateTotalAmountAndDiscount(settlementItems) }
+    ))
+}
