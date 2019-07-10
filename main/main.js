@@ -55,5 +55,15 @@ const calculatePromotions = (settlementItems) => {
             item.amount = item.originAmount
         }
     })
-    console.log(settlementItems)
+}
+
+const calculateTotalAmountAndDiscount = (settlementItems) => {
+    let amount = 0;
+    let discount = 0;
+    settlementItems.forEach(item => {
+        if (!item.detail) return
+        amount += item.amount;
+        item.discount && (discount += item.discount)
+    })
+    return { amount, discount }
 }

@@ -226,6 +226,21 @@ describe('pos', () => {
     })
   })
 
+  describe('Total Amount and discount calculate check', () => {
+    it('should have amount 13 and discount 6 in calculateTotalAmountAndDiscount when give ITEM000004 with count as 2 and ITEM1000001 with count with 5', () => {
+      const settlementItems = [];      
+      setAndCountItemInSettlementItems(settlementItems, 'ITEM000001', 2)
+      setAndCountItemInSettlementItems(settlementItems, 'ITEM000004', 2)
+      setAndCountItemInSettlementItems(settlementItems, 'ITEM000001', 3)
+      calculateAmountInSettlementItems(settlementItems)
+      calculatePromotions(settlementItems)
+      expect(calculateTotalAmountAndDiscount(settlementItems)).toEqual({
+        amount: 13,
+        discount: 6
+      })
+    })
+  })
+
   // it('should print text', () => {
 
   //   const tags = [
