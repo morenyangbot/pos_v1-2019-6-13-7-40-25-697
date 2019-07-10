@@ -203,6 +203,27 @@ describe('pos', () => {
         amount: 3.00
       }])
     })
+
+    it('should not set discount in calculatePromotions when ITEM000004 with count as 2', () => {
+      const settlementItems = [];
+      setAndCountItemInSettlementItems(settlementItems, 'ITEM000004', 2)
+      calculateAmountInSettlementItems(settlementItems)
+      calculatePromotions(settlementItems)
+      expect(settlementItems).toEqual([{
+        barcode: 'ITEM000004',
+        detail: {
+          barcode: 'ITEM000004',
+          name: '电池',
+          unit: '个',
+          price: 2.00
+        },
+        count: 2,
+        originAmount: 4.00,
+        promotions: [],
+        discount: undefined,
+        amount: 4.00
+      }])
+    })
   })
 
   // it('should print text', () => {
