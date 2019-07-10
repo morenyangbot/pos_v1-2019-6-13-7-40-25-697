@@ -228,7 +228,7 @@ describe('pos', () => {
 
   describe('Total Amount and discount calculate check', () => {
     it('should have amount 13 and discount 6 in calculateTotalAmountAndDiscount when give ITEM000004 with count as 2 and ITEM1000001 with count with 5', () => {
-      const settlementItems = [];      
+      const settlementItems = [];
       setAndCountItemInSettlementItems(settlementItems, 'ITEM000001', 2)
       setAndCountItemInSettlementItems(settlementItems, 'ITEM000004', 2)
       setAndCountItemInSettlementItems(settlementItems, 'ITEM000001', 3)
@@ -238,6 +238,28 @@ describe('pos', () => {
         amount: 13,
         discount: 6
       })
+    })
+  })
+
+  describe('Receipt Text test', () => {
+    it('should return receipt text in createReceiptText when give ITEM000004 with count as 2 and ITEM1000001 with count with 5', () => {
+      const settlementItems = [];
+      setAndCountItemInSettlementItems(settlementItems, 'ITEM000001', 2)
+      setAndCountItemInSettlementItems(settlementItems, 'ITEM000004', 2)
+      setAndCountItemInSettlementItems(settlementItems, 'ITEM000001', 3)
+      calculateAmountInSettlementItems(settlementItems)
+      calculatePromotions(settlementItems)
+      expect(
+        createReceiptText(
+          { settlementItems, ...calculateTotalAmountAndDiscount(settlementItems) }
+        )
+      ).toBe(`***<没钱赚商店>收据***\n` +
+        `名称：雪碧，数量：5瓶，单价：3.00(元)，小计：9.00(元)\n` +
+        `名称：电池，数量：2个，单价：2.00(元)，小计：4.00(元)\n` +
+        `----------------------\n` +
+        `总计：13.00(元)\n` +
+        `节省：6.00(元)\n` +
+        `**********************`)
     })
   })
 

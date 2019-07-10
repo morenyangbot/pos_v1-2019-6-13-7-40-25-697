@@ -67,3 +67,17 @@ const calculateTotalAmountAndDiscount = (settlementItems) => {
     })
     return { amount, discount }
 }
+
+const createReceiptText = ({ settlementItems, amount, discount }) => {
+    let errorMsg = '';
+    let receiptText = '***<没钱赚商店>收据***\n';
+    settlementItems.forEach(item => {
+        if (item.detail) {
+            receiptText += `名称：${item.detail.name}，数量：${item.count}${item.detail.unit}，单价：${item.detail.price.toFixed(2)}(元)，小计：${item.amount.toFixed(2)}(元)\n`
+        } else {
+            errorMsg += `[Error]: Barcode ${item.barcode} is illeagal.\n`
+        }
+    })
+    receiptText += `----------------------\n总计：${amount.toFixed(2)}(元)\n节省：${discount.toFixed(2)}(元)\n**********************`
+    return errorMsg + receiptText
+}
