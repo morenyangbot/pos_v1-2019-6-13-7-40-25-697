@@ -2,9 +2,7 @@
 
 const isBarcodeValid = (barcode) => !!loadAllItems().find(item => item.barcode === barcode);
 
-const findItemInDB = (barcode) => {
-    return isBarcodeValid(barcode) ? loadAllItems().find(item => item.barcode === barcode) : null
-}
+const findItemInDB = (barcode) => isBarcodeValid(barcode) ? loadAllItems().find(item => item.barcode === barcode) : null
 
 const splitOriginBarcode = (originBarcode) => {
     const SPLITTER = '-'
@@ -34,9 +32,7 @@ const setAndCountItemInSettlementItems = (settlementItems, barcode, count = 1) =
     }
 }
 
-const calculateAmountInSettlementItems = (settlementItems) => {
-    settlementItems.forEach(item => item.detail && (item.originAmount = item.count * item.detail.price))
-}
+const calculateAmountInSettlementItems = (settlementItems) => settlementItems.forEach(item => item.detail && (item.originAmount = item.count * item.detail.price))
 
 const findPromotionsByBarcode = (barcode) => loadPromotions()
     .filter(promotion => promotion.barcodes.includes(barcode))
@@ -85,12 +81,10 @@ const createReceiptText = ({ settlementItems, amount, discount }) => {
 const printReceipt = (items) => {
     const settlementItems = [];
     items.forEach(originBarcode => {
-        const {barcode, count} = splitOriginBarcode(originBarcode)
+        const { barcode, count } = splitOriginBarcode(originBarcode)
         setAndCountItemInSettlementItems(settlementItems, barcode, count)
     });
     calculateAmountInSettlementItems(settlementItems)
     calculatePromotions(settlementItems)
-    console.log(createReceiptText(
-        { settlementItems, ...calculateTotalAmountAndDiscount(settlementItems) }
-    ))
+    console.log(createReceiptText({ settlementItems, ...calculateTotalAmountAndDiscount(settlementItems) }))
 }
