@@ -2,13 +2,20 @@
 
 describe('pos', () => {
 
-  const LEGAL_BARCODE = 'ITEM000001';
+  const LEGAL_BARCODE = 'ITEM000001'
   const ILLEGAL_BARCODE = 'AITEM'
   const LEGAL_ITEM_DETAIL = {
     barcode: 'ITEM000001',
     name: '雪碧',
     unit: '瓶',
     price: 3.00
+  }
+  const LEGAL_BARCODE_2 = 'ITEM000002'
+  const LEGAL_ITEM_DETAIL_2 = {
+    barcode: 'ITEM000002',
+    name: '苹果',
+    unit: '斤',
+    price: 5.50
   }
 
   describe('Barcode verify check', () => {
@@ -51,6 +58,74 @@ describe('pos', () => {
         barcode: LEGAL_BARCODE,
         count: 2.5
       })
+    })
+  })
+
+  describe('Item counts & amount calculating check', () => {
+    it('should return settlement item info in setAndCountItemInSettlementItems when call [], ITEM000001, 1', () => {
+      const settlementItems = []
+      setAndCountItemInSettlementItems(settlementItems, LEGAL_BARCODE, 1)
+      expect(settlementItems).toEqual([{
+        barcode: LEGAL_BARCODE,
+        detail: LEGAL_ITEM_DETAIL,
+        count: 1,
+        originAmount: undefined,
+        promotion: undefined,
+        discount: undefined,
+        amount: undefined
+      }])
+    })
+
+    it('should add count in settlement item info in setAndCountItemInSettlementItems when enter an existing item', () => {
+      const settlementItems = []
+      setAndCountItemInSettlementItems(settlementItems, LEGAL_BARCODE, 1)
+      setAndCountItemInSettlementItems(settlementItems, LEGAL_BARCODE, 2.5)
+      expect(settlementItems).toEqual([{
+        barcode: LEGAL_BARCODE,
+        detail: LEGAL_ITEM_DETAIL,
+        count: 3.5,
+        originAmount: undefined,
+        promotion: undefined,
+        discount: undefined,
+        amount: undefined
+      }])
+    })
+
+    it('should push a new settled item in setAndCountItemInSettlementItems when enter a new item', () => {
+      const settlementItems = []
+      setAndCountItemInSettlementItems(settlementItems, LEGAL_BARCODE, 1)
+      setAndCountItemInSettlementItems(settlementItems, LEGAL_BARCODE_2, 1.5)
+      expect(settlementItems).toEqual([{
+        barcode: LEGAL_BARCODE,
+        detail: LEGAL_ITEM_DETAIL,
+        count: 1,
+        originAmount: undefined,
+        promotion: undefined,
+        discount: undefined,
+        amount: undefined
+      }, {
+        barcode: LEGAL_BARCODE_2,
+        detail: LEGAL_ITEM_DETAIL_2,
+        count: 1.5,
+        originAmount: undefined,
+        promotion: undefined,
+        discount: undefined,
+        amount: undefined
+      }])
+    })
+
+    it('should push null in detail of settled item in setAndCountItemInSettlementItems when enter a illegal barcode', () => {
+      const settlementItems = []
+      setAndCountItemInSettlementItems(settlementItems, ILLEGAL_BARCODE, 1)
+      expect(settlementItems).toEqual([{
+        barcode: ILLEGAL_BARCODE,
+        detail: null,
+        count: undefined,
+        originAmount: undefined,
+        promotion: undefined,
+        discount: undefined,
+        amount: undefined
+      }])
     })
   })
 

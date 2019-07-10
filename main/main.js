@@ -15,3 +15,21 @@ const splitOriginBarcode = (originBarcode) => {
         return { barcode: originBarcode, count: 1 }
     }
 }
+
+const setAndCountItemInSettlementItems = (settlementItems, barcode, count = 1) => {
+    const itemSettled = settlementItems.find(item => item.barcode === barcode);
+    if (!itemSettled) {
+        const itemInDB = findItemInDB(barcode);
+        settlementItems.push({
+            barcode,
+            detail: itemInDB,
+            count: itemInDB ? count : undefined,
+            originAmount: undefined,
+            promotion: undefined,
+            discount: undefined,
+            amount: undefined,
+        })
+    } else {
+        itemSettled.count += count
+    }
+}
