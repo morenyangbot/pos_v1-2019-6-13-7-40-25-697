@@ -70,7 +70,7 @@ describe('pos', () => {
         detail: LEGAL_ITEM_DETAIL,
         count: 1,
         originAmount: undefined,
-        promotion: undefined,
+        promotions: undefined,
         discount: undefined,
         amount: undefined
       }])
@@ -85,7 +85,7 @@ describe('pos', () => {
         detail: LEGAL_ITEM_DETAIL,
         count: 3.5,
         originAmount: undefined,
-        promotion: undefined,
+        promotions: undefined,
         discount: undefined,
         amount: undefined
       }])
@@ -100,7 +100,7 @@ describe('pos', () => {
         detail: LEGAL_ITEM_DETAIL,
         count: 1,
         originAmount: undefined,
-        promotion: undefined,
+        promotions: undefined,
         discount: undefined,
         amount: undefined
       }, {
@@ -108,7 +108,7 @@ describe('pos', () => {
         detail: LEGAL_ITEM_DETAIL_2,
         count: 1.5,
         originAmount: undefined,
-        promotion: undefined,
+        promotions: undefined,
         discount: undefined,
         amount: undefined
       }])
@@ -122,7 +122,7 @@ describe('pos', () => {
         detail: null,
         count: undefined,
         originAmount: undefined,
-        promotion: undefined,
+        promotions: undefined,
         discount: undefined,
         amount: undefined
       }])
@@ -139,7 +139,7 @@ describe('pos', () => {
         detail: LEGAL_ITEM_DETAIL,
         count: 2.5,
         originAmount: 7.5,
-        promotion: undefined,
+        promotions: undefined,
         discount: undefined,
         amount: undefined
       }])
@@ -154,7 +154,7 @@ describe('pos', () => {
         detail: null,
         count: undefined,
         originAmount: undefined,
-        promotion: undefined,
+        promotions: undefined,
         discount: undefined,
         amount: undefined
       }])

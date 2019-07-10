@@ -25,7 +25,7 @@ const setAndCountItemInSettlementItems = (settlementItems, barcode, count = 1) =
             detail: itemInDB,
             count: itemInDB ? count : undefined,
             originAmount: undefined,
-            promotion: undefined,
+            promotions: undefined,
             discount: undefined,
             amount: undefined,
         })
