@@ -129,6 +129,38 @@ describe('pos', () => {
     })
   })
 
+  describe('Settlement items amount calculate check', () => {
+    it('should calculate amout as 6 in calculateAmountInSettlementItems when ITEM000001 with count 2', () => {
+      const settlementItems = [];
+      setAndCountItemInSettlementItems(settlementItems, LEGAL_BARCODE, 2.5)
+      calculateAmountInSettlementItems(settlementItems)
+      expect(settlementItems).toEqual([{
+        barcode: LEGAL_BARCODE,
+        detail: LEGAL_ITEM_DETAIL,
+        count: 2.5,
+        originAmount: 7.5,
+        promotion: undefined,
+        discount: undefined,
+        amount: undefined
+      }])
+    })
+
+    it('should not calculate amount in calculateAmountInSettlementItems when item witn illegal barcode', () => {
+      const settlementItems = [];
+      setAndCountItemInSettlementItems(settlementItems, ILLEGAL_BARCODE, 2.5)
+      calculateAmountInSettlementItems(settlementItems)
+      expect(settlementItems).toEqual([{
+        barcode: ILLEGAL_BARCODE,
+        detail: null,
+        count: undefined,
+        originAmount: undefined,
+        promotion: undefined,
+        discount: undefined,
+        amount: undefined
+      }])
+    })
+  })
+
   // it('should print text', () => {
 
   //   const tags = [

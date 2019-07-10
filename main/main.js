@@ -33,3 +33,7 @@ const setAndCountItemInSettlementItems = (settlementItems, barcode, count = 1) =
         itemSettled.count += count
     }
 }
+
+const calculateAmountInSettlementItems = (settlementItems) => {
+    settlementItems.forEach(item => item.detail && (item.originAmount = item.count * item.detail.price))
+}
