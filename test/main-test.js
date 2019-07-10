@@ -2,13 +2,16 @@
 
 describe('pos', () => {
 
+  const LEGAL_BARCODE = 'ITEM000001';
+  const ILLEGAL_BARCODE = 'AITEM'
+
   describe('Barcode verify check', () => {
     it('should return true in isBarcodeValid when call ITEM000001', () => {
-      expect(isBarcodeValid('ITEM000001')).toBe(true)
+      expect(isBarcodeValid(LEGAL_BARCODE)).toBe(true)
     })
 
     it('should return false in isBarcodeValid when call AITEM', () => {
-      expect(isBarcodeValid('AITEM')).toBe(false)
+      expect(isBarcodeValid(ILLEGAL_BARCODE)).toBe(false)
     })
   })
 
