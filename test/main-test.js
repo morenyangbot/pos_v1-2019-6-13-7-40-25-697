@@ -171,6 +171,40 @@ describe('pos', () => {
     })
   })
 
+  describe('Promotion calculate check', () => {
+    it('should reduce 6.00 in calculatePromotions when ITEM1000001 with count as 5', () => {
+      const settlementItems = [];
+      setAndCountItemInSettlementItems(settlementItems, LEGAL_BARCODE, 5)
+      calculateAmountInSettlementItems(settlementItems)
+      calculatePromotions(settlementItems)
+      expect(settlementItems).toEqual([{
+        barcode: LEGAL_BARCODE,
+        detail: LEGAL_ITEM_DETAIL,
+        count: 5,
+        originAmount: 15.00,
+        promotions: ['BUY_TWO_GET_ONE_FREE'],
+        discount: 6.00,
+        amount: 9.00
+      }])
+    })
+
+    it('should reduce 0 in calculatePromotions when ITEM1000001 with count as 1', () => {
+      const settlementItems = [];
+      setAndCountItemInSettlementItems(settlementItems, LEGAL_BARCODE, 1)
+      calculateAmountInSettlementItems(settlementItems)
+      calculatePromotions(settlementItems)
+      expect(settlementItems).toEqual([{
+        barcode: LEGAL_BARCODE,
+        detail: LEGAL_ITEM_DETAIL,
+        count: 1,
+        originAmount: 3.00,
+        promotions: ['BUY_TWO_GET_ONE_FREE'],
+        discount: 0.00,
+        amount: 3.00
+      }])
+    })
+  })
+
   // it('should print text', () => {
 
   //   const tags = [

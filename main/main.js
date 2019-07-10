@@ -41,4 +41,19 @@ const calculateAmountInSettlementItems = (settlementItems) => {
 const findPromotionsByBarcode = (barcode) => loadPromotions()
     .filter(promotion => promotion.barcodes.includes(barcode))
     .map(promotion => promotion.type)
-    
+
+const calculatePromotions = (settlementItems) => {
+    settlementItems.forEach(item => {
+        item.detail && (item.promotions = findPromotionsByBarcode(item.barcode))
+    })
+    settlementItems.forEach(item => {
+        if (item.promotions && item.promotions[0] === 'BUY_TWO_GET_ONE_FREE') {
+            const discountAmount = parseInt(item.count / 2);
+            item.discount = discountAmount * item.detail.price
+            item.amount = item.originAmount - item.discount
+        } else {
+            item.amount = item.originAmount
+        }
+    })
+    console.log(settlementItems)
+}
