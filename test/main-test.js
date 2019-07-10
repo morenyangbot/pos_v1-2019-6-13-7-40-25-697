@@ -161,6 +161,16 @@ describe('pos', () => {
     })
   })
 
+  describe('Find promotions check', () => {
+    it('should pickup promotion [BUY_TWO_GET_ONE_FREE] in findPromotionsByBarcode when call ITEM1000001', () => {
+      expect(findPromotionsByBarcode(LEGAL_BARCODE)).toEqual(['BUY_TWO_GET_ONE_FREE'])
+    })
+
+    it('should not pickup any promotion in findPromotionsByBarcode when call AITEM', () => {
+      expect(findPromotionsByBarcode(ILLEGAL_BARCODE)).toEqual([])
+    })
+  })
+
   // it('should print text', () => {
 
   //   const tags = [

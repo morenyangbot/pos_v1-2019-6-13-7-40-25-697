@@ -37,3 +37,8 @@ const setAndCountItemInSettlementItems = (settlementItems, barcode, count = 1) =
 const calculateAmountInSettlementItems = (settlementItems) => {
     settlementItems.forEach(item => item.detail && (item.originAmount = item.count * item.detail.price))
 }
+
+const findPromotionsByBarcode = (barcode) => loadPromotions()
+    .filter(promotion => promotion.barcodes.includes(barcode))
+    .map(promotion => promotion.type)
+    
