@@ -31,6 +31,29 @@ describe('pos', () => {
     })
   })
 
+  describe('Barcode split check', () => {
+    it('should return {barcode: ITEM000001, count: 1} in splitBarcode when call ITEM000001', () => {
+      expect(splitOriginBarcode(LEGAL_BARCODE)).toEqual({
+        barcode: LEGAL_BARCODE,
+        count: 1
+      })
+    })
+
+    it('should return {barcode: ITEM000001, count: 2} in splitBarcode when call ITEM000001-2', () => {
+      expect(splitOriginBarcode(`${LEGAL_BARCODE}-2`)).toEqual({
+        barcode: LEGAL_BARCODE,
+        count: 2
+      })
+    })
+
+    it('should return {barcode: ITEM000001, count: 2.5} in splitBarcode when call ITEM000001-2.5', () => {
+      expect(splitOriginBarcode(`${LEGAL_BARCODE}-2.5`)).toEqual({
+        barcode: LEGAL_BARCODE,
+        count: 2.5
+      })
+    })
+  })
+
   // it('should print text', () => {
 
   //   const tags = [
